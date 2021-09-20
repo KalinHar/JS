@@ -1,195 +1,151 @@
 
-function myMethods(array) {
-    let arr = array;
 
-    function myIncludes(arr, value) {
-        for (const iterator of arr) {
-            if (iterator === value) {
-                return true;
-            }
-        }
-        return false;
+//Examples: --------------------------------------------------------------
+// Arrays Indexation
+let arr = [];
+arr[3.4] = 'Oranges'; // Setting values via non-integers using bracket notation (or dot notation) creates object properties instead of array elements
+arr[-1] = 'Apples';
+console.log(arr.length);                // 0
+console.log(arr.hasOwnProperty(3.4));   // true
+arr["1"] = 'Grapes';
+console.log(arr.length);                // 2
+console.log(arr); // [ <1 empty item>, 'Grapes', '3.4': 'Oranges', '-1': 'Apples' ]
 
-        //Examples: --------------------------------------------------------------
+let numbers = [10, 20, 30, 40, 50];
+let [a, b, ...elems] = numbers;
+console.log(a) // 10
+console.log(b) // 20
+console.log(elems) // [30, 40, 50] 
 
-        //The includes() returns true if the given value is part of the array
+// Arrays - pop, push ...
 
-        //let myArray = ["Peter", "George", "Mary"];
-        //myArray.includes("George"); // true
-        //myArray.includes("John"); // false
-    }
+let nums = [10, 20, 30, 40, 50, 60, 70];
+console.log(nums.pop());  // 70
+console.log(nums);     // [ 10, 20, 30, 40, 50, 60 ]
 
-    function myIndexOf(arr, value) {
-        for (let index = 0; index < arr.length; index++) {
-            if (arr[index] === value) {
-                return index;
-            }
-        }
-        return -1;
+console.log(nums.push(80));
+console.log(nums); // [ 10, 20, 30, 40, 50, 60, 80 ]
 
-        //Examples: --------------------------------------------------------------
+console.log(nums.shift()); // 10 (removed element)
+console.log(nums);  // [ 20, 30, 40, 50, 60, 80 ]
 
-        //The indexOf() returns the index where the given value is stored
-        //# Returns -1 if value is not found
+console.log(nums.unshift(100, 200));
+console.log(nums);  // [ 100, 200, 10, 20, 30, 40, 50, 60,80 ]
 
-        //let myArray = ["Peter", "George", "Mary"];
-        //myArray.indexOf("Mary"); // 2
-        //myArray.indexOf("Nick"); // -1
-    }
 
-    function mySlice(arr, start, end) {
-        let copy = [];
-        if (start == undefined) {
-            start = 0;
-        }
-        if (end == undefined) {
-            end = arr.length;
-        }
-        for (let i = start; i < end; i++) {
-            copy.push(arr[i]);
-        }
-        return copy;
+let array = [1, 2, 3, 4, 5];
+let isEven = function(element) {
+  // checks whether an element is even
+  return element % 2 === 0;
+};
+console.log(array.some(isEven)); //tr
 
-        //Examples: --------------------------------------------------------------
 
-        //The slice() function creates new array from part of another
-        //# Note that the original array will not be modified
+let array1 = [5, 12, 8, 130, 44];let found = array1.find(function(element) {
+      return element > 10;
+    });
+    console.log(found); // 12
+    
 
-        //let myArray = ["one", "two", "three", "four", "five"];
-        //let sliced = myArray.slice(2);
-        //console.log(myArray);
-        ////["one","two","three","four","five"]
-        //console.log(sliced); // ["three","four","five"]
-        //console.log(myArray.slice(2, 4)); // ["three","four"]
-    }
+const array1 = [1, 2, 3, 4];
+const reducer = (accumulator, currentValue) => accumulator + currentValue;console.log(array1.reduce(reducer)); // 10
+console.log(array1.reduce(reducer, 5)); // 15
 
-    function mySplice(arr, start, count, elements) {
-        let left = arr.slice(0, start);
-        let remove = arr.slice(start, start + count);
-        let right = arr.slice(start + count);
-        arr.length = 0;
-        for (const iterator of left) {
-            arr.push(iterator);
-        }
-        if (right != undefined) {
-            for (const iterator of elements) {
-                arr.push(iterator);
-            }
-        }
-        for (const iterator of right) {
-            arr.push(iterator);
-        }
-        return remove;
 
-        //Examples: --------------------------------------------------------------
+//The includes() returns true if the given value is part of the array
+let myArray = ["Peter", "George", "Mary"];
+myArray.includes("George"); // true
+myArray.includes("John"); // false
 
-        //The splice() function adds/removes items to/from an array, and returns the removed item(s)
-        //# This function changes the original array
+//The indexOf() returns the index where the given value is stored
+//# Returns -1 if value is not found
+myArray.indexOf("Mary"); // 2
+myArray.indexOf("Nick"); // -1
 
-        //let nums = [5, 10, 15, 20, 25, 30];
-        //let mid = nums.splice(2, 3); // start, delete-count
-        //console.log(mid.join('|')); // 15|20|25
-        //console.log(nums.join('|')); // 5|10|30
+//The slice() function creates new array from part of another
+//# Note that the original array will not be modified
+let myArray = ["one", "two", "three", "four", "five"];
+console.log(myArray.slice(2)); // ["three","four","five"]
+console.log(myArray.slice(2, 4)); // ["three","four"]
+console.log(myArray.slice(-2)); // ["four", "five"]
 
-        //nums.splice(3, 2, "twenty", "twenty-five");
-        //console.log(nums.join('|')); // 5|10|15|twenty|twenty-five|30
-    }
+//The splice() function adds/removes items to/from an array, and returns the removed item(s)
+//# This function changes the original array
+let nums = [1, 3, 4, 5, 6];
+nums.splice(1, 0, 2); // inserts at index 1
+console.log(nums); // [ 1, 2, 3, 4, 5, 6 ]
+nums.splice(4, 1, 19); // replaces 1 element at index 4
+console.log(nums); // [ 1, 2, 3, 4, 19, 6 ]
+let el = nums.splice(2, 1); // removes 1 element at index 2
+console.log(nums); // [ 1, 2, 4, 19, 6 ]
+console.log(el); // [ 3 ]
 
-    function myMap(arr, operator) {
-        let result = [];
-        for (const iterator of arr) {
-            result.push(operator(iterator));
-        }
-        return result;
+//The fill() function fills all the elements of an array from a start index to an end index with a static value
+let arr = [1, 2, 3, 4];// fill with 0 from position 2 until position 4
+console.log(arr.fill(0, 2, 4)); // [1, 2, 0, 0]// fill with 5 from position 1
+console.log(arr.fill(5, 1)); // [1, 5, 5, 5]console.log(arr.fill(6)); // [6, 6, 6, 6]
 
-        //Examples: --------------------------------------------------------------
 
-        //The map() function creates new array by applying a function to every element
+let arr = [1, 2, 3, 4];
+arr.reverse();
+console.log(arr); // [ 4, 3, 2, 1 ]
 
-        //let myArr = ['one', 'two', 'three', 'four'];
-        //let lengths = myArr.map(x => x.length);
-        //console.log(lengths); // [3,3,5,4]
 
-        //let numsAsStrings = ["5", "3", "14", "-2", "8"]
-        //let nums = numsAsStrings.map(Number);
-        //console.log(nums); // [5, 3, 14, -2, 8]
-        //let incr = nums.map(x => x + 1);
-        //console.log(incr); // [6, 4, 15, -1, 9]
-    }
+let elements = ['Fire', 'Air', 'Water'];console.log(elements.join()); // "Fire,Air,Water"
+console.log(elements.join('')); // "FireAirWater"
+console.log(elements.join('-')); // "Fire-Air-Water"
+console.log(['Fire'].join(".")); // Fire
 
-    function myFilter(arr, predicate) {
-        let result = [];
-        for (const iterator of arr) {
-            if (predicate(iterator)) {
-                result.push(iterator);
-            }
-        }
-        return result;
 
-        //Examples: --------------------------------------------------------------
+const num1 = [1, 2, 3];
+const num2 = [4, 5, 6];
+const num3 = [7, 8, 9];
+const numbers = num1.concat(num2, num3);
+console.log(numbers); //  [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-        //The filter() function creates new array from elements matching predicate
-        //# Predicate is a function returning a Boolean value (true or false)
 
-        //let myArr = ['one', 'two', 'three', 'four'];
-        //let longWords = myArr.filter(x => x.length > 3);
-        //console.log(longWords); // ['three','four']
+//The map() function creates new array by applying a function to every element
+let myArr = ['one', 'two', 'three', 'four'];
+let lengths = myArr.map(x => x.length);
+console.log(lengths); // [3,3,5,4]
 
-        //let nums = [5, -11, 3, -2, 8]
-        //let positiveNums = nums.filter(x => x > 0);
-        //console.log(positiveNums); // [5, 3, 8]
-    }
+let numsAsStrings = ["5", "3", "14", "-2", "8"]
+let nums = numsAsStrings.map(Number);
+console.log(nums); // [5, 3, 14, -2, 8]
+let incr = nums.map(x => x + 1);
+console.log(incr); // [6, 4, 15, -1, 9]
 
-    function sorting(arr) {
-        arr.sort((a, b) => a - b);
-        let newArr = arr.slice(0, 4);
-        // console.log(newArr.join(' '));
-        // console.log(arr[0], arr[1]);
+//The filter() function creates new array from elements matching predicate
+//# Predicate is a function returning a Boolean value (true or false)
+let myArr = ['one', 'two', 'three', 'four'];
+let longWords = myArr.filter(x => x.length > 3);
+console.log(longWords); // ['three','four']
 
-        return newArr.join(' ');
+let nums = [5, -11, 3, -2, 8]
+let positiveNums = nums.filter(x => x > 0);
+console.log(positiveNums); // [5, 3, 8]
 
-        //Examples: --------------------------------------------------------------
+//The sort() function sorts the items of an array
+//# Sorting can be alphabetic or numeric, and either ascending (up) or descending (down)
+let names = ["Peter", "George", "Mary"];
+names.sort(); // Default behaviour – alphabetical order
+console.log(names); // ["George","Mary","Peter"]
 
-        //The sort() function sorts the items of an array
-        //# Sorting can be alphabetic or numeric, and either ascending (up) or descending (down)
+let numbers = [20, 40, 10, 30, 100, 5];
+numbers.sort(); // Unexpected result on arrays of numbers!
+console.log(numbers); // [10,100,20,30,40,5]
 
-        //let names = ["Peter", "George", "Mary"];
-        //names.sort(); // Default behaviour – alphabetical order
-        //console.log(names); // ["George","Mary","Peter"]
+// If result < 0, a is sorted before b , If result < 0, a is sorted before b , If result = 0, a and b are equal (no change)
 
-        //let numbers = [20, 40, 10, 30, 100, 5];
-        //numbers.sort(); // Unexpected result on arrays of numbers!
-        //console.log(numbers); // [10,100,20,30,40,5]
+let nums = [20, 40, 10, 30, 100, 5];
+nums.sort((a, b) => a - b); // Compare elements as numbers             <-- Use that
+console.log(nums.join('|')); // 5|10|20|30|40|100
 
-        //# If result < 0, a is sorted before b , If result < 0, a is sorted before b , If result = 0, a and b are equal (no change)
+let words = ['nest', 'Eggs', 'bite', 'Grip', 'jAw'];
+words.sort((a, b) => a.localeCompare(b)); //                           < --Use that
+// ['bite', 'Eggs', 'Grip', 'jAw', 'nest']
 
-        //let nums = [20, 40, 10, 30, 100, 5];
-        //nums.sort((a, b) => a - b); // Compare elements as numbers                   <-- Use that
-        //console.log(nums.join('|')); // 5|10|20|30|40|100
-
-        //let words = ['nest', 'Eggs', 'bite', 'Grip', 'jAw'];
-        //words.sort((a, b) => a.localeCompare(b));                                    <-- Use that
-        //// ['bite', 'Eggs', 'Grip', 'jAw', 'nest']
-
-        //let wordsLength = ['Isacc', 'Theodor', 'Jack', 'Harrison', 'George'];
-        //wordsLength.sort((a, b) => a.length - b.length);                             <-- Use that
-        //// ['Jack', 'Isacc', 'George', 'Theodor', 'Harrison']
-    }
-
-    // console.log(myIncludes(arr, 8));
-    // console.log(myIncludes(arr, 10));
-    // console.log(myIndexOf(arr, -3));
-    // let predic = myFilter(arr, x => x > 7);
-    // let nums = myMap(arr, x => x + 1);
-    // let result = mySplice(arr, 3, 2, []);
-    // let newArr = mySlice(arr, 1, 3);
-    // let sorted = sorting(arr);
-    // console.log(sorted);
-    // console.log(predic);
-    // console.log(nums);
-    // console.log(result);
-    // console.log(newArr);
-
-}
-myMethods([5, 8, -3, 11, 44, 13, -8]);
+let wordsLength = ['Isacc', 'Theodor', 'Jack', 'Harrison', 'George'];
+wordsLength.sort((a, b) => a.length - b.length); //                    < --Use that
+    // ['Jack', 'Isacc', 'George', 'Theodor', 'Harrison']
 
