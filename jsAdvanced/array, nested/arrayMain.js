@@ -1,4 +1,4 @@
-/*
+
 function myMethods(array) {
     let arr = array;
 
@@ -192,4 +192,4 @@ function myMethods(array) {
 
 }
 myMethods([5, 8, -3, 11, 44, 13, -8]);
-*/
+
