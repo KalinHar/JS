@@ -11,7 +11,7 @@ function carFactory(car) {
 
     function getWheels(wheel) {
         wheel = wheel % 2 == 0 ? wheel-1 : wheel;
-        return [wheel, wheel, wheel, wheel];
+        return new Array(4).fill(wheel, 0, 4);
     }
 
     return {
@@ -34,4 +34,4 @@ care = (carFactory({
 }
 ))
 
-console.log(care.cariage)
+console.log(care.carriage)

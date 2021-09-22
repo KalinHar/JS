@@ -2,24 +2,18 @@ function lowestPrice(arr) {
     let result = {};
     for (let tpp of arr) {
         let [city, product, pri] = tpp.split(' | ');
-        if (result.product == undefined) {
-            let el = {
-                price: pri,
-                town: city
-            }  
-            
-            result[product] = el; 
-        }else if (result.product.price > pri) {
-            result[product] = {
-                price: pri,
-                town: city
-            }
+        pri = Number(pri);
+
+        if (!result[product]) {
+            result[product] = {};
         }
+        result[product][city] = pri; 
     }
-    console.log(result)
-    const elements = Object.entries(result)
-    for (let [pro, v] of elements) {
-        console.log(`${pro} -> ${v.price} (${v.town})`)
+    // console.log(result)
+    // let sortedItems = Object.keys(result).sort((a, b) => a.localeCompare,b);
+    for (const prod in result) {
+        const sorted = Object.entries(result[prod]).sort((a, b) => a[1] - b[1]);
+        console.log(`${prod} -> ${sorted[0][1]} (${sorted[0][0]})`)
     }
 }
 
