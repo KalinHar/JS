@@ -15,6 +15,5 @@ function generateReport() {
         }
         report.push(result);
     }
-    // console.log(JSON.stringify(report));
     document.querySelector('#output').innerHTML = JSON.stringify(report);
 }
