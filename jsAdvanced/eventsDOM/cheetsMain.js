@@ -24,3 +24,29 @@ para.remove();
 element.addEventListener('click', e => {
     console.log(e.target);
 });
+
+gradient.addEventListener('mousemove', onMove);
+function onMove(ev) {
+    const box = ev.target;
+    const offset = Math.floor(ev.offsetX / box.clientWidth * 100);
+    output.textContent = `${offset}%`;
+}
+
+field.addEventListener('focus', onFocus);
+field.addEventListener('blur', onBlur);
+function onFocus(ev) {
+ev.target.parentNode.className = 'focused';
+}
+function onBlur(ev) {
+ev.target.parentNode.className = '';
+}
+
+document.getElementById('email').addEventListener('change', onChange);
+function onChange(ev) {
+    const pattetn = /^[a-z]+@[a-z]+\.[a-z]+$/;
+    if (pattetn.test(ev.target.value)) {
+        ev.target.classList.remove('error');
+    }else {
+        ev.target.classList.add('error');
+    }
+}
