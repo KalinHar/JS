@@ -22,28 +22,30 @@ function solve() {
                 board[r][c] = cells[r * size + c].value;
             }
         }
+
         for (let row of board) {
             if (new Set(row).size < size) {
                 correct = false;
                 break;
             }
         }
-        if (correct) {
-            for (let c = 0; c < size; c++) {
-                let col = new Set();
-                for (let r = 0; r < size; r++) {
-                    col.add(board[r][c])
-                }
-                if (col.size < size) {
-                    correct = false;
-                    break;
-                }
+
+        for (let c = 0; c < size; c++) {
+            let col = new Set();
+            for (let r = 0; r < size; r++) {
+                col.add(board[r][c])
+            }
+            if (col.size < size) {
+                correct = false;
+                break;
             }
         }
+
         return correct;
     }
 
     function check(ev) {
+        
         if (isCorrect()) {
             tableBorder.style.border = "2px solid green";
             result.style.color = "green";
