@@ -20,6 +20,9 @@ function solve() {
             board[r] = [];
             for (let c = 0; c < size; c++) {
                 board[r][c] = cells[r * size + c].value;
+                if (Number(board[r][c]) <= 0 || Number(board[r][c]) > size) {
+                    correct = false;
+                }
             }
         }
 
