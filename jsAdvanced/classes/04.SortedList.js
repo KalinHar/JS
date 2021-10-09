@@ -1,6 +1,8 @@
 class List {
-    elements = [];
-    size = 0;
+    constructor() {
+        elements = [];
+        size = 0;
+    }
 
     add(el) {
         this.elements.push(el);

@@ -1,5 +1,7 @@
 class Company {
-    departments = {};
+    constructor() {
+        this.departments = {};
+    }
 
     static validateInput(empl) {
         for (let el of empl) {
@@ -41,8 +43,14 @@ class Company {
                 bestEmpl = this.departments[dep]
             }
         }
-        bestEmpl.sort((a, b) => a[0].localeCompare(b[0])).sort((a, b) => b[1] - a[1]);
-        let result = `Best Department is: ${bestDepart}\nAverage salary: ${bestAvgSal.toFixed(2)}\n${bestEmpl.map(e => `${e[0]} ${e[1]} ${e[2]}`).join('\n')}`
+        // bestEmpl.sort((a, b) => a[0].localeCompare(b[0])).sort((a, b) => b[1] - a[1]);
+        bestEmpl.sort(([name1, salary1, p1], [name2, salary2, p2]) => {
+            return salary2 - salary1 || name1.localeCompare(name2);
+        });
+        
+        let result = `Best Department is: ${bestDepart}\n`;
+        result += `Average salary: ${bestAvgSal.toFixed(2)}\n`;
+        result += `${bestEmpl.map(e => `${e[0]} ${e[1]} ${e[2]}`).join('\n')}`;
         return result;
     }
 }
@@ -57,4 +65,3 @@ c.addEmployee("Pesho", 1000, "graphical designer", "Marketing");
 c.addEmployee("Gosho", 1350, "HR", "Human resources");
 console.log(c.bestDepartment());
 
-// console.log(c.departments['Construction'])

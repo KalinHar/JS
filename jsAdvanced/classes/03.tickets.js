@@ -8,19 +8,21 @@ function result(tickets, criterion) {
     }
     
     let res = [];
-    const sort = {
-        'destination': 0,
-        'price': 1,
-        'status': 2
-    }
-    const sc = sort[criterion];
+
     function sortFunc(a, b) {
+        const sort = {
+            'destination': 0,
+            'price': 1,
+            'status': 2
+        }
+        const sc = sort[criterion];
         if (sc == 1) {
             return Number(a[sc]) > Number(b[sc]);
         }else {
             return a[sc].localeCompare(b[sc]);
         }
     }
+    
     tickets = tickets.map(t => t.split('|')).sort((a, b) => sortFunc(a, b));
     for (let [t, p, s] of tickets) {
         res.push(new Ticket(t, Number(p), s));
