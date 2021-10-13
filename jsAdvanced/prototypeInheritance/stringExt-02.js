@@ -6,8 +6,8 @@
         return `${str}${this}`;
     };
     String.prototype.ensureEnd = function (str) {
-        if (this.slice(- str.length) == str) {
-            return `${this}`;
+        if (this.endsWith(str)) {
+            return this.toString();
         }
         return `${this}${str}`;
 
@@ -29,28 +29,12 @@
                 return this.toString().substr(0, n - 3) + "...";
             }
         }
-        // if (this.length <= n) {
-        //     return `${this}`;
-        // }
-        // let res = this.slice(0, n);
-        // res = res.split(' ');
-        // console.log(res);
-        // if (res.length > 1) {
-        //     res.pop();
-        //     return res.join(' ') + '...';
-        // }
-        // if (n >= 4) {
-        //     res = res[0].slice(0, n - 3);
-        //     return res + '...';
-        // }
-        // return '.'.repeat(n);
     };
 
     String.format = function (string, ...params) {
-        let words = params;
         let regex = /{\d+}/;
-        while (regex.test(string) && words.length != 0) {
-            string = string.replace(regex, words.shift())
+        while (regex.test(string) && params.length > 0) {
+            string = string.replace(regex, params.shift())
         }
         return string;
     };
