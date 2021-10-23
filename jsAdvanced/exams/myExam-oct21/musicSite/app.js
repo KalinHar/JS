@@ -1,43 +1,32 @@
 window.addEventListener('load', solve);
 
 function solve() {
-    const genre = document.querySelector('#genre');
-    const name = document.querySelector('#name');
-    const author = document.querySelector('#author');
-    const date = document.querySelector('#date');
-    document.querySelector('#add-btn').addEventListener('click', toAllHits);
-
+    const [genre, name, author, date] = document.querySelectorAll('form input')
     const allHits = document.querySelector('.all-hits-container');
     const savedHits = document.querySelector('.saved-container');
     const totalLikes = document.querySelector('.likes p');
-    
+    document.querySelector('#add-btn').addEventListener('click', toAllHits);
+
     function toAllHits(e) {
         e.preventDefault();
         if (genre.value != '' && name.value != '' && author.value != '' && date.value != '') {
-            let div = document.createElement('div');
+            const div = document.createElement('div');
             div.className = 'hits-info';
             div.innerHTML = `<img src="./static/img/img.png">
 <h2>Genre: ${genre.value}</h2>
 <h2>Name: ${name.value}</h2>
 <h2>Author: ${author.value}</h2>
-<h3>Date: ${date.value}</h3>`;
+<h3>Date: ${date.value}</h3>
+<button class="save-btn">Save song</button>
+<button class="like-btn">Like song</button>
+<button class="delete-btn">Delete</button>`;
             allHits.appendChild(div);
 
-            let saveBtn = document.createElement('button');
-            let likeBtn = document.createElement('button');
-            let dellBtn = document.createElement('button');
-            saveBtn.className = 'save-btn';
-            saveBtn.textContent = 'Save song';
-            likeBtn.className = 'like-btn';
-            likeBtn.textContent = 'Like song';
-            dellBtn.className = 'delete-btn';
-            dellBtn.textContent = 'Delete';
+            const [saveBtn, likeBtn, dellBtn] = div.querySelectorAll('button')
+            saveBtn.addEventListener('click', toSavedSongs);
             likeBtn.addEventListener('click', likeSong);
             dellBtn.addEventListener('click', dellSong);
-            saveBtn.addEventListener('click', toSavedSongs);
 
-            [saveBtn, likeBtn, dellBtn].forEach(b => div.appendChild(b));
-            
             [genre, name, author, date].forEach(e => e.value = '');
         }
     }
@@ -46,16 +35,15 @@ function solve() {
     }
 
     function toSavedSongs(e) {
-        let el = e.target.parentElement;
+        const el = e.target.parentElement;
         savedHits.appendChild(el);
         e.target.nextElementSibling.remove();
         e.target.remove();
     }
 
     function likeSong(e) {
-        let curLikes = totalLikes.textContent.split(': ')[1];
-        curLikes = Number(curLikes) + 1;
-        totalLikes.innerHTML = `Total Likes: ${curLikes}`;
+        const counter = Number(totalLikes.textContent.split(': ')[1]);
+        totalLikes.innerHTML = `Total Likes: ${counter + 1}`;
         e.target.disabled = "true";
     }
 }
